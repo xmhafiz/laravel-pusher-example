@@ -61,7 +61,7 @@ $(document).ready(function() {
     });
 
     // pusher js client
-    var pusher = new Pusher('fc7bf82bc42aa0070bcc', {
+    var pusher = new Pusher("{{ env('PUSHER_APP_KEY') }}", {
     	cluster: 'ap1',
     });
 
