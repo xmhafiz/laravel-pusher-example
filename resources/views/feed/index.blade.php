@@ -9,6 +9,7 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('js/pusher.min.js') }}"></script>
 <script>
 
 function addToList(data, append = true) {
@@ -33,7 +34,6 @@ function addToList(data, append = true) {
 $(document).ready(function() {
 	axios.get('/api/feed')
 	.then(function(response){
-        console.log(response.data);
 
         if (response.data) {
         	var data = response.data;
@@ -58,6 +58,17 @@ $(document).ready(function() {
             console.log(error.response.status);
             console.log(error.response.data);
         }
+    });
+
+    // pusher js client
+    var pusher = new Pusher('fc7bf82bc42aa0070bcc', {
+    	cluster: 'ap1',
+    });
+
+    var channel = pusher.subscribe('feed-channel');
+    channel.bind('feed.added', function(data) {
+    	console.log('new data received.');
+    	addToList(data.feed, false);
     });
 })
 

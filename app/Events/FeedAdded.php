@@ -33,7 +33,11 @@ class FeedAdded implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('feed-channel');
+        return ['feed-channel'];
+    }
+
+    public function broadcastAs() {
+        return 'feed.added';
     }
 
     public function broadcastWith()
